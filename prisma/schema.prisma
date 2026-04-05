@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("admin")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  @@map("admin_users")
+}
+
+model Service {
+  id                 String   @id @default(cuid())
+  titleAr            String   @map("title_ar")
+  titleEn            String   @map("title_en")
+  shortDescriptionAr String   @map("short_description_ar")
+  shortDescriptionEn String   @map("short_description_en")
+  descriptionAr      String   @map("description_ar")
+  descriptionEn      String   @map("description_en")
+  icon               String   @default("code")
+  slug               String   @unique
+  sortOrder          Int      @default(0) @map("sort_order")
+  isPublished        Boolean  @default(true) @map("is_published")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  quoteRequests QuoteRequest[]
+  @@map("services")
+}
+
+model Project {
+  id                 String   @id @default(cuid())
+  titleAr            String   @map("title_ar")
+  titleEn            String   @map("title_en")
+  shortDescriptionAr String   @map("short_description_ar")
+  shortDescriptionEn String   @map("short_description_en")
+  descriptionAr      String   @map("description_ar")
+  descriptionEn      String   @map("description_en")
+  coverImage         String?  @map("cover_image")
+  projectUrl         String?  @map("project_url")
+  slug               String   @unique
+  sortOrder          Int      @default(0) @map("sort_order")
+  isPublished        Boolean  @default(true) @map("is_published")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  @@map("projects")
+}
+
+model QuoteRequest {
+  id                 String   @id @default(cuid())
+  fullName           String   @map("full_name")
+  companyName        String?  @map("company_name")
+  email              String
+  phone              String?
+  serviceId          String?  @map("service_id")
+  projectDescription String   @map("project_description")
+  budgetRange        String?  @map("budget_range")
+  timeline           String?
+  status             String   @default("new")
+  createdAt          DateTime @default(now()) @map("created_at")
+  service Service? @relation(fields: [serviceId], references: [id])
+  @@map("quote_requests")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  fullName  String   @map("full_name")
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now()) @map("created_at")
+  @@map("contact_messages")
+}
+
+model SiteSetting {
+  id             String   @id @default(cuid())
+  siteNameAr     String   @default("ACE") @map("site_name_ar")
+  siteNameEn     String   @default("ACE") @map("site_name_en")
+  taglineAr      String?  @map("tagline_ar")
+  taglineEn      String?  @map("tagline_en")
+  aboutAr        String?  @map("about_ar")
+  aboutEn        String?  @map("about_en")
+  visionAr       String?  @map("vision_ar")
+  visionEn       String?  @map("vision_en")
+  missionAr      String?  @map("mission_ar")
+  missionEn      String?  @map("mission_en")
+  phone          String?
+  whatsapp       String?
+  email          String?
+  addressAr      String?  @map("address_ar")
+  addressEn      String?  @map("address_en")
+  logo           String?
+  primaryColor   String   @default("#5b5cff") @map("primary_color")
+  secondaryColor String   @default("#7a5cff") @map("secondary_color")
+  socialLinks    Json?    @map("social_links")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  @@map("site_settings")
+}
