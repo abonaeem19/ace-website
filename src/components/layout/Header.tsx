@@ -38,7 +38,7 @@ export default function Header({ locale, dict }: HeaderProps) {
     <header
       className="fixed top-0 z-50 w-full transition-all duration-500"
       style={{
-        background: scrolled ? "rgba(7, 11, 20, 0.8)" : "transparent",
+        background: scrolled ? "rgba(255, 255, 255, 0.85)" : "transparent",
         backdropFilter: scrolled ? "blur(20px)" : "none",
         borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
         padding: scrolled ? "8px 0" : "16px 0",
@@ -95,7 +95,7 @@ export default function Header({ locale, dict }: HeaderProps) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden" style={{ borderTop: "1px solid var(--border)", background: "rgba(7, 11, 20, 0.95)", backdropFilter: "blur(20px)" }}>
+        <div className="lg:hidden" style={{ borderTop: "1px solid var(--border)", background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(20px)" }}>
           <div className="container-ace space-y-1 py-6">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="block rounded-xl px-4 py-3 text-base transition-all" style={{ color: "var(--text-soft)" }}>{link.label}</Link>

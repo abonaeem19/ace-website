@@ -9,22 +9,22 @@
    ═══════════════════════════════════════ */
 
 :root {
-  --bg-main: #070b14;
-  --bg-soft: #0b1020;
-  --bg-card: #10182a;
-  --bg-card-2: #121d33;
-  --bg-card-hover: #162040;
+  --bg-main: #f5f7fb;
+  --bg-soft: #eef1f8;
+  --bg-card: #ffffff;
+  --bg-card-2: #f8f9fc;
+  --bg-card-hover: #f0f2fa;
   --primary: #5b5cff;
   --primary-2: #7a5cff;
   --accent: #2f7bff;
   --accent-2: #4e9aff;
-  --glow: rgba(91, 92, 255, 0.15);
-  --glow-strong: rgba(91, 92, 255, 0.3);
-  --text-main: #f5f7ff;
-  --text-soft: #a7b0c5;
-  --text-muted: #6b7a99;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.12);
+  --glow: rgba(91, 92, 255, 0.08);
+  --glow-strong: rgba(91, 92, 255, 0.15);
+  --text-main: #1a1d2e;
+  --text-soft: #4a5068;
+  --text-muted: #8890a5;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.12);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -51,11 +51,11 @@
   .btn-primary {
     @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-8 py-4 font-tajawal font-bold text-white transition-all duration-500;
     background: linear-gradient(135deg, var(--primary), var(--primary-2));
-    box-shadow: 0 0 20px rgba(91, 92, 255, 0.2), 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(91, 92, 255, 0.15), 0 4px 15px rgba(91, 92, 255, 0.1);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 40px rgba(91, 92, 255, 0.35), 0 8px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 40px rgba(91, 92, 255, 0.2), 0 8px 25px rgba(91, 92, 255, 0.15);
   }
   .btn-primary::after {
     content: '';
@@ -102,13 +102,13 @@
   .card-ace:hover {
     border-color: var(--border-hover);
     transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 30px var(--glow);
+    box-shadow: 0 20px 60px rgba(91, 92, 255, 0.08), 0 4px 20px rgba(0, 0, 0, 0.06);
   }
   .card-ace:hover::before { opacity: 1; }
 
   /* Glass */
   .glass-panel {
-    background: rgba(16, 24, 42, 0.6);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -117,13 +117,13 @@
   /* Inputs */
   .input-ace {
     @apply w-full rounded-xl px-5 py-4 font-tajawal text-white transition-all duration-300;
-    background: var(--bg-soft);
+    background: var(--bg-main);
     border: 1px solid var(--border);
   }
   .input-ace:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(91, 92, 255, 0.1), 0 0 20px rgba(91, 92, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(91, 92, 255, 0.08), 0 0 20px rgba(91, 92, 255, 0.03);
   }
   .input-ace::placeholder { color: var(--text-muted); }
 
@@ -147,7 +147,7 @@
   /* Section Divider */
   .section-divider {
     border-top: 1px solid var(--border);
-    background: linear-gradient(to bottom, rgba(91, 92, 255, 0.02), transparent);
+    background: linear-gradient(to bottom, rgba(91, 92, 255, 0.015), transparent);
   }
 
   /* Badge */
@@ -220,8 +220,8 @@
 /* Grid Pattern */
 .bg-grid-ace {
   background-image:
-    linear-gradient(to right, rgba(91, 92, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(91, 92, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(to right, rgba(91, 92, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(91, 92, 255, 0.04) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
