@@ -41,7 +41,10 @@ export default async function RootLayout({ children, params }: { children: React
   const fontFamily = locale === "ar" ? "font-tajawal" : "font-inter";
 
   return (
-    <html lang={locale} dir={dir} className="scroll-smooth">
+    <html lang={locale} dir={dir} className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('ace-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()` }} />
+      </head>
       <body className={`${fontFamily} antialiased`} style={{ background: "var(--bg-main)", color: "var(--text-main)" }}>
         {children}
       </body>
