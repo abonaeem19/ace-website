@@ -29,7 +29,7 @@ export default function AdminLoginPage({ params }: { params: { locale: string } 
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-10 text-center">
           <div className="mx-auto mb-6 flex justify-center">
-            <Image src="/images/ace-logo.png" alt="ACE" width={200} height={60} className="h-14 w-auto object-contain" />
+            <Image src="/images/ace-logo.png" alt="ACE" width={200} height={60} className="h-20 w-auto object-contain sm:h-24" />
           </div>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>{isAr ? "لوحة تحكم ACE — تسجيل الدخول" : "ACE Dashboard — Sign In"}</p>
         </div>

@@ -52,7 +52,7 @@ export default function Header({ locale, dict }: HeaderProps) {
             alt="ACE - Advanced Code Engines"
             width={220}
             height={65}
-            className="h-12 w-auto object-contain sm:h-14 lg:h-16"
+            className="h-16 w-auto object-contain sm:h-20 lg:h-24"
             priority
           />
         </Link>
