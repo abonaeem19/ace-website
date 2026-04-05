@@ -19,7 +19,7 @@ export default function Footer({ locale, dict, settings }: FooterProps) {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="mb-5">
-              <Image src="/images/ace-logo.png" alt="ACE" width={150} height={45} className="h-16 w-auto object-contain sm:h-20" />
+              <Image src="/images/ace-logo.png" alt="ACE" width={150} height={45} className="h-[35px] w-auto object-contain" />
             </div>
             <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{dict.footer.description}</p>
           </div>
