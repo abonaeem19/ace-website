@@ -21,7 +21,7 @@ export default function AdminSidebar({ locale, dict }: { locale: string; dict: R
   return (
     <aside className="fixed inset-y-0 start-0 z-40 flex w-64 flex-col" style={{ background: "var(--bg-soft)", borderInlineEnd: "1px solid var(--border)" }}>
       <div className="flex h-16 items-center gap-3 px-5" style={{ borderBottom: "1px solid var(--border)" }}>
-        <Image src="/images/ace-logo.png" alt="ACE" width={100} height={30} className="h-[35px] w-auto object-contain" />
+        <Image src="/images/ace-logo.png" alt="ACE" width={100} height={30} className="h-[40px] w-auto object-contain" />
         <span className="rounded-md px-2 py-0.5 text-[10px] font-bold" style={{ background: "rgba(91,92,255,0.15)", color: "var(--primary)" }}>Admin</span>
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto p-4">
