@@ -69,30 +69,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </Link>
               </div>
             </div>
-
-            {/* Floating Stats Panel */}
-            <div className="anim-up delay-5 mx-auto mt-24 max-w-4xl">
-              <div className="relative overflow-hidden rounded-2xl p-[1px]" style={{ background: "linear-gradient(135deg, rgba(91,92,255,0.3), rgba(122,92,255,0.1), rgba(47,123,255,0.2))" }}>
-                <div className="rounded-2xl p-8" style={{ background: "var(--bg-card)" }}>
-                  <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-                    {[
-                      { value: "150+", label: dict.stats.projects, icon: Layers },
-                      { value: "80+", label: dict.stats.clients, icon: Users },
-                      { value: "10+", label: dict.stats.experience, icon: Clock },
-                      { value: "25+", label: dict.stats.team, icon: Cpu },
-                    ].map((stat, i) => (
-                      <div key={i} className="group text-center">
-                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-500 group-hover:scale-110" style={{ background: "rgba(91,92,255,0.08)", border: "1px solid rgba(91,92,255,0.1)" }}>
-                          <stat.icon className="h-5 w-5" style={{ color: "var(--primary)" }} />
-                        </div>
-                        <div className="font-almarai text-3xl font-black sm:text-4xl" style={{ color: "var(--primary)" }}>{stat.value}</div>
-                        <div className="mt-1 text-xs font-medium" style={{ color: "var(--text-muted)" }}>{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -247,10 +223,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <div className="p-6">
                     <h3 className="mb-2 font-almarai text-lg font-bold">{getLocalizedField(project, "title", locale as Locale)}</h3>
                     <p className="text-sm" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
-                    {project.projectUrl && (
+                    {project.projectUrl ? (
                       <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium transition-all duration-300" style={{ color: "var(--primary)" }}>
                         {dict.projects.viewProject} <ExternalLink className="h-3.5 w-3.5" />
                       </a>
+                    ) : (
+                      <span className="mt-4 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.15)" }}>
+                        {isAr ? "قيد التطوير" : "In Development"}
+                      </span>
                     )}
                   </div>
                 </div>
