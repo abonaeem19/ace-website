@@ -9,26 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ace: {
-          50: "#eef0ff", 100: "#dfe3ff", 200: "#c5cbff", 300: "#a0a1ff",
-          400: "#8180ff", 500: "#5b5cff", 600: "#4a3ef5", 700: "#3e31d8",
-          800: "#332aae", 900: "#2d2889", 950: "#1b1750",
-        },
-        dark: {
-          DEFAULT: "#070b14", 50: "#f0f2f5", 100: "#d9dde5",
-          800: "#0b1020", 900: "#10182a", 950: "#070b14",
-        },
+        ace: { 50: "#e6feff", 100: "#b3fdff", 200: "#80fbff", 300: "#4df9ff", 400: "#1af8ff", 500: "#00F0FF", 600: "#00c0cc", 700: "#009099", 800: "#006066", 900: "#003033" },
+        dark: { DEFAULT: "#04040C", 50: "#f0f2f5", 800: "#07071A", 900: "#04040C", 950: "#020208" },
       },
       fontFamily: {
-        tajawal: ["Tajawal", "sans-serif"],
-        almarai: ["Almarai", "sans-serif"],
+        tajawal: ["Tajawal", "Noto Kufi Arabic", "sans-serif"],
+        almarai: ["Almarai", "Noto Kufi Arabic", "sans-serif"],
         inter: ["Inter", "sans-serif"],
-      },
-      animation: {
-        "fade-up": "fadeUp 0.8s ease-out forwards",
-        "fade-in": "fadeIn 0.8s ease-out forwards",
-        float: "floatOrb 8s ease-in-out infinite",
-        "glow-pulse": "glowPulse 3s ease-in-out infinite",
+        mono: ["Space Mono", "monospace"],
       },
     },
   },

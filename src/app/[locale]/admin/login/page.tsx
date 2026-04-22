@@ -21,7 +21,7 @@ export default function AdminLoginPage({ params }: { params: { locale: string } 
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden p-4" style={{ background: "var(--bg-soft)" }}>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden p-4" style={{ background: "var(--bg-main)" }}>
       {/* Background Effects */}
       <div className="glow-orb" style={{ width: 600, height: 600, background: "rgba(91,92,255,0.06)", top: "-15%", left: "50%", transform: "translateX(-50%)" }} />
       <div className="absolute inset-0 bg-grid-ace" />

@@ -1,14 +1,26 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Code2, Smartphone, Server, Shield, Workflow, Headphones, Brain, Bot, Lightbulb, Zap, Users, Clock, Lock, Sparkles, Globe, Cpu, Layers, ExternalLink, ChevronLeft, ChevronRight, Monitor, Cog } from "lucide-react";
+import { ArrowLeft, ArrowRight, Code2, Smartphone, Server, Shield, Workflow, Headphones, Brain, Bot, Lightbulb, Zap, Users, Clock, Lock, Globe, Cpu, Settings, Terminal, ChevronDown, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import HeroClient from "@/components/home/HeroClient";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { getPublishedServices, getPublishedProjects, getSiteSettings } from "@/lib/queries";
 import { getLocalizedField } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-const iconMap: Record<string, React.ElementType> = { globe: Globe, code: Code2, smartphone: Smartphone, server: Server, shield: Shield, workflow: Workflow, headphones: Headphones, brain: Brain, bot: Bot, lightbulb: Lightbulb };
+const svcIcons: Record<string, { icon: any; color: string; bg: string }> = {
+  globe:     { icon: Globe,     color: "#00F0FF", bg: "rgba(0,240,255,0.08)" },
+  code:      { icon: Code2,     color: "#00F0FF", bg: "rgba(0,240,255,0.08)" },
+  smartphone:{ icon: Smartphone,color: "#10B981", bg: "rgba(16,185,129,0.08)" },
+  server:    { icon: Server,    color: "#F59E0B", bg: "rgba(245,158,11,0.08)" },
+  shield:    { icon: Shield,    color: "#06B6D4", bg: "rgba(6,182,212,0.08)" },
+  workflow:  { icon: Workflow,   color: "#EF4444", bg: "rgba(239,68,68,0.08)" },
+  headphones:{ icon: Headphones, color: "#F97316", bg: "rgba(249,115,22,0.08)" },
+  brain:     { icon: Brain,     color: "#8B5CF6", bg: "rgba(139,92,246,0.08)" },
+  bot:       { icon: Bot,       color: "#EC4899", bg: "rgba(236,72,153,0.08)" },
+  lightbulb: { icon: Lightbulb, color: "#84CC16", bg: "rgba(132,204,22,0.08)" },
+};
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -22,166 +34,105 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <Header locale={locale as Locale} dict={dict} />
 
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION 1 — HERO (Premium Cinematic)
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="relative flex min-h-[100vh] items-center overflow-hidden">
-        {/* Layered Background */}
-        <div className="absolute inset-0 bg-grid-ace" />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(91,92,255,0.12) 0%, transparent 60%)" }} />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 40% at 80% 80%, rgba(122,92,255,0.06) 0%, transparent 50%)" }} />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 50% at 10% 60%, rgba(47,123,255,0.05) 0%, transparent 50%)" }} />
+      {/* Atmosphere */}
+      <div className="bg-grid-ace" />
+      <div className="scanlines" />
 
-        {/* Animated Orbs */}
-        <div className="glow-orb" style={{ width: 800, height: 800, background: "rgba(91,92,255,0.07)", top: "-30%", left: "50%", transform: "translateX(-50%)" }} />
-        <div className="glow-orb" style={{ width: 400, height: 400, background: "rgba(122,92,255,0.05)", bottom: "5%", right: "5%", animationDelay: "4s" }} />
+      {/* ══════ HERO ══════ */}
+      <section className="relative flex min-h-[100vh] items-center overflow-hidden" style={{ padding: "100px 0 60px" }}>
+        {/* Orbs */}
+        <div className="glow-orb" style={{ width: 600, height: 600, background: "rgba(139,92,246,0.08)", left: "-10%", top: "-20%" }} />
+        <div className="glow-orb" style={{ width: 500, height: 500, background: "rgba(0,240,255,0.06)", right: "-5%", top: "30%", animationDelay: "1s" }} />
+        <div className="glow-orb" style={{ width: 300, height: 300, background: "rgba(245,158,11,0.05)", left: "20%", bottom: "10%", animationDelay: "2s" }} />
 
-        <div className="container-ace relative z-10 pb-20 pt-36">
-          <div className="mx-auto max-w-5xl">
-            {/* Center Content */}
-            <div className="text-center">
-              {/* Badge */}
-              <div className="anim-up mb-10 inline-flex items-center gap-3 rounded-full px-6 py-2.5 text-sm font-medium" style={{ background: "rgba(91,92,255,0.08)", border: "1px solid rgba(91,92,255,0.15)", color: "var(--primary)" }}>
-                <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--primary)] opacity-75"></span><span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--primary)]"></span></span>
+        <div className="container-ace relative z-10">
+          <div className="flex flex-col items-center gap-16 lg:flex-row lg:items-center lg:justify-between">
+            {/* Text */}
+            <div className="flex-1">
+              {/* Tag */}
+              <div className="badge-ace anim-up mb-7">
+                <span className="relative flex h-1.5 w-1.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--primary)] opacity-75"></span><span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></span></span>
                 {dict.hero.badge}
               </div>
 
-              {/* Main Title — Extra Large */}
-              <h1 className="anim-up delay-1 font-almarai text-[3.2rem] font-black leading-[1.08] tracking-tight sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.5rem]">
+              {/* Glitch Title */}
+              <h1 className="glitch anim-up delay-1 font-almarai leading-[1.1]" data-text={dict.hero.title} style={{ fontSize: "clamp(42px, 5vw, 76px)", fontWeight: 900, color: "white", marginBottom: 8 }}>
                 {dict.hero.title}
-                <br />
+              </h1>
+              <h1 className="anim-up delay-2 font-almarai leading-[1.1]" style={{ fontSize: "clamp(42px, 5vw, 76px)", fontWeight: 900, marginBottom: 28 }}>
                 <span className="gradient-text">{dict.hero.titleHighlight}</span>
               </h1>
 
               {/* Description */}
-              <p className="anim-up delay-2 mx-auto mt-8 max-w-2xl text-lg leading-relaxed sm:text-xl" style={{ color: "var(--text-soft)" }}>
+              <p className="anim-up delay-3 mb-10 max-w-[520px] text-[15px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
                 {dict.hero.description}
               </p>
 
-              {/* CTA Buttons */}
-              <div className="anim-up delay-3 mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
-                <Link href={`/${locale}/quote`} className="btn-primary px-10 py-5 text-lg">
+              {/* CTAs */}
+              <div className="anim-up delay-4 mb-12 flex flex-wrap gap-4">
+                <Link href={`/${locale}/quote`} className="btn-primary">
+                  <Terminal className="h-4 w-4" />
                   {dict.hero.cta}
-                  <Arrow className="h-5 w-5" />
                 </Link>
-                <Link href={`/${locale}/about`} className="btn-secondary px-10 py-5 text-lg">
+                <Link href={`/${locale}/about`} className="btn-secondary">
                   {dict.hero.ctaSecondary}
                 </Link>
               </div>
+
+              {/* Tech badges */}
+              <div className="anim-up delay-5 flex flex-wrap gap-2">
+                {["Next.js","React","TypeScript","Python","LangChain","Node.js"].map(t => (
+                  <span key={t} className="tech-badge">
+                    <span className="inline-block h-[5px] w-[5px] rounded-full bg-[var(--primary)]" />
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
+
+            {/* Right — Client-side interactive */}
+            <HeroClient />
           </div>
         </div>
 
-        {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32" style={{ background: "linear-gradient(to top, var(--bg-main), transparent)" }} />
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2" style={{ color: "var(--text-muted)", fontSize: 11, fontFamily: "'Space Mono', monospace" }}>
+          <span>SCROLL</span>
+          <ChevronDown className="h-4 w-4" style={{ animation: "scrollDown 1.5s infinite" }} />
+        </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION 2 — SPLIT SHOWCASE (Two dramatic cards)
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="glow-orb" style={{ width: 500, height: 500, background: "rgba(91,92,255,0.04)", top: "20%", left: "-10%", animationDelay: "2s" }} />
-
-        <div className="container-ace relative z-10">
-          <div className="mb-20 text-center">
-            <div className="badge-ace anim-up mb-5">{isAr ? "ما نقدمه" : "What We Offer"}</div>
-            <h2 className="anim-up delay-1 font-almarai text-3xl font-black sm:text-4xl lg:text-5xl">
-              {isAr ? "حلول تقنية" : "Tech Solutions"}{" "}
-              <span className="gradient-text">{isAr ? "شاملة" : "That Scale"}</span>
+      {/* ══════ SERVICES ══════ */}
+      <section className="section-padding relative z-10">
+        <div className="container-ace">
+          <div className="mb-[60px] text-center">
+            <div className="badge-ace mb-5 inline-flex"><Terminal className="h-3 w-3" /> SERVICES_MATRIX</div>
+            <h2 className="font-almarai font-black" style={{ fontSize: "clamp(32px, 4vw, 52px)", color: "white", marginBottom: 16 }}>
+              {isAr ? "حلول " : "Comprehensive "}
+              <span className="gradient-text">{isAr ? "تقنية شاملة" : "Tech Solutions"}</span>
             </h2>
+            <p className="mx-auto max-w-[520px] text-[15px]" style={{ color: "var(--text-muted)" }}>{dict.services.description}</p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-2">
-            {/* Card 1 — Development */}
-            <div className="group relative overflow-hidden rounded-3xl transition-all duration-700 hover:-translate-y-2" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-              {/* Top Glow */}
-              <div className="absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100" style={{ background: "radial-gradient(circle, rgba(91,92,255,0.2), transparent)" }} />
-
-              <div className="relative z-10 p-10 lg:p-12">
-                {/* Icon + Badge row */}
-                <div className="mb-8 flex items-center gap-4">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg" style={{ background: "linear-gradient(135deg, rgba(91,92,255,0.15), rgba(91,92,255,0.05))", border: "1px solid rgba(91,92,255,0.2)", boxShadow: "0 0 0 rgba(91,92,255,0)" }}>
-                    <Monitor className="h-10 w-10" style={{ color: "var(--primary)" }} />
-                  </div>
-                  <div>
-                    <h3 className="font-almarai text-2xl font-bold lg:text-3xl">{isAr ? "التطوير والبرمجة" : "Development"}</h3>
-                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>{isAr ? "Web · Mobile · Systems" : "Web · Mobile · Systems"}</p>
-                  </div>
-                </div>
-
-                <p className="mb-8 text-base leading-relaxed" style={{ color: "var(--text-soft)" }}>
-                  {isAr ? "مواقع إلكترونية، تطبيقات جوال، أنظمة ومنصات رقمية متكاملة — مبنية بأحدث التقنيات وأعلى معايير الجودة والأداء." : "Websites, mobile apps, digital systems and platforms — built with the latest technologies and highest quality standards."}
-                </p>
-
-                {/* Tags */}
-                <div className="mb-8 flex flex-wrap gap-2">
-                  {(isAr ? ["Next.js", "React Native", "Node.js", "PostgreSQL", "TypeScript"] : ["Next.js", "React Native", "Node.js", "PostgreSQL", "TypeScript"]).map((tag) => (
-                    <span key={tag} className="rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(91,92,255,0.06)", color: "var(--primary)", border: "1px solid rgba(91,92,255,0.1)" }}>{tag}</span>
-                  ))}
-                </div>
-
-                <Link href={`/${locale}/services`} className="inline-flex items-center gap-2 text-sm font-bold transition-all duration-300 hover:gap-3" style={{ color: "var(--primary)" }}>
-                  {isAr ? "استكشف خدمات التطوير" : "Explore development services"} <Chevron className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Card 2 — AI & Automation */}
-            <div className="group relative overflow-hidden rounded-3xl transition-all duration-700 hover:-translate-y-2" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-              <div className="absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100" style={{ background: "radial-gradient(circle, rgba(122,92,255,0.2), transparent)" }} />
-
-              <div className="relative z-10 p-10 lg:p-12">
-                <div className="mb-8 flex items-center gap-4">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg" style={{ background: "linear-gradient(135deg, rgba(122,92,255,0.15), rgba(122,92,255,0.05))", border: "1px solid rgba(122,92,255,0.2)" }}>
-                    <Brain className="h-10 w-10" style={{ color: "var(--primary-2)" }} />
-                  </div>
-                  <div>
-                    <h3 className="font-almarai text-2xl font-bold lg:text-3xl">{isAr ? "الذكاء الاصطناعي" : "AI & Automation"}</h3>
-                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>{isAr ? "AI · Bots · Automation" : "AI · Bots · Automation"}</p>
-                  </div>
-                </div>
-
-                <p className="mb-8 text-base leading-relaxed" style={{ color: "var(--text-soft)" }}>
-                  {isAr ? "حلول ذكاء اصطناعي، موظفين افتراضيين، أتمتة عمليات وتكامل أنظمة — لرفع كفاءة أعمالك وتحسين تجربة عملائك." : "AI solutions, virtual employees, process automation and system integration — to boost your efficiency and improve customer experience."}
-                </p>
-
-                <div className="mb-8 flex flex-wrap gap-2">
-                  {(isAr ? ["ChatGPT API", "LangChain", "Automation", "Chatbots", "ML Models"] : ["ChatGPT API", "LangChain", "Automation", "Chatbots", "ML Models"]).map((tag) => (
-                    <span key={tag} className="rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(122,92,255,0.06)", color: "var(--primary-2)", border: "1px solid rgba(122,92,255,0.1)" }}>{tag}</span>
-                  ))}
-                </div>
-
-                <Link href={`/${locale}/services`} className="inline-flex items-center gap-2 text-sm font-bold transition-all duration-300 hover:gap-3" style={{ color: "var(--primary-2)" }}>
-                  {isAr ? "استكشف حلول الذكاء الاصطناعي" : "Explore AI solutions"} <Chevron className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION 3 — SERVICES GRID
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="section-divider section-padding relative overflow-hidden">
-        <div className="container-ace relative z-10">
-          <div className="mb-16 text-center">
-            <div className="badge-ace mb-5">{dict.services.subtitle}</div>
-            <h2 className="font-almarai text-3xl font-black sm:text-4xl lg:text-5xl">{dict.services.title}</h2>
-            <p className="mx-auto mt-4 max-w-xl" style={{ color: "var(--text-soft)" }}>{dict.services.description}</p>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.slice(0, 9).map((service) => {
-              const Icon = iconMap[service.icon] || Code2;
+          <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}>
+            {services.slice(0, 9).map((service, i) => {
+              const s = svcIcons[service.icon] || svcIcons.code;
+              const Icon = s.icon;
               return (
-                <Link key={service.id} href={`/${locale}/quote?service=${service.id}`} className="card-ace group p-7">
+                <Link key={service.id} href={`/${locale}/quote?service=${service.id}`} className="card-ace group block !cursor-pointer">
                   <div className="relative z-10">
-                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110" style={{ background: "rgba(91,92,255,0.08)", border: "1px solid rgba(91,92,255,0.1)" }}>
-                      <Icon className="h-7 w-7" style={{ color: "var(--primary)" }} />
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300" style={{ background: s.bg, border: `1px solid ${s.color}30` }}>
+                      <Icon className="h-[22px] w-[22px]" style={{ color: s.color }} />
                     </div>
-                    <h3 className="mb-2 font-almarai text-lg font-bold">{getLocalizedField(service, "title", locale as Locale)}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--text-soft)" }}>{getLocalizedField(service, "shortDescription", locale as Locale)}</p>
+                    <div className="mb-1.5 text-xs" style={{ color: s.color, fontFamily: "'Space Mono', monospace" }}>
+                      {getLocalizedField(service, "title", "en" as Locale)}
+                    </div>
+                    <h3 className="mb-3 font-almarai text-lg font-bold text-white">{getLocalizedField(service, "title", locale as Locale)}</h3>
+                    <p className="text-[13px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                      {getLocalizedField(service, "shortDescription", locale as Locale)}
+                    </p>
+                    {/* Bottom glow */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: `linear-gradient(90deg, transparent, ${s.color}, transparent)` }} />
                   </div>
                 </Link>
               );
@@ -190,109 +141,149 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION 4 — PROJECTS PREVIEW
-          ═══════════════════════════════════════════════════════════ */}
-      {projects.length > 0 && (
-        <section className="section-padding relative overflow-hidden">
-          <div className="glow-orb" style={{ width: 400, height: 400, background: "rgba(122,92,255,0.04)", bottom: "10%", right: "-5%", animationDelay: "3s" }} />
+      {/* ══════ TECH MARQUEE ══════ */}
+      <section className="section-divider relative z-10 overflow-hidden py-6">
+        <div className="mb-5 text-center text-xs tracking-[2px]" style={{ color: "var(--text-muted)", fontFamily: "'Space Mono', monospace" }}>— TECH STACK —</div>
+        <div className="flex overflow-hidden">
+          <div className="flex gap-8 whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
+            {[...Array(2)].flatMap(() => ["Next.js","React Native","Node.js","TypeScript","PostgreSQL","ChatGPT API","LangChain","Python","Docker","AWS","Supabase","Prisma","GraphQL","FastAPI","Redis","TailwindCSS","Figma","n8n"]).map((t, i) => (
+              <span key={i} className="inline-flex items-center gap-2.5 text-sm" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Space Mono', monospace" }}>
+                <span className="inline-block h-1 w-1 rounded-full bg-[var(--primary)]" />{t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="container-ace relative z-10">
+      {/* ══════ PROJECTS PREVIEW ══════ */}
+      {projects.length > 0 && (
+        <section className="section-padding relative z-10">
+          <div className="container-ace">
             <div className="mb-16 flex items-end justify-between">
               <div>
                 <div className="badge-ace mb-5">{dict.projects.subtitle}</div>
-                <h2 className="font-almarai text-3xl font-black sm:text-4xl lg:text-5xl">{dict.projects.title}</h2>
+                <h2 className="font-almarai font-black" style={{ fontSize: "clamp(28px, 3.5vw, 46px)", color: "white" }}>{dict.projects.title}</h2>
               </div>
               <Link href={`/${locale}/projects`} className="btn-secondary hidden sm:inline-flex">
                 {dict.projects.viewAll} <Arrow className="h-4 w-4" />
               </Link>
             </div>
-
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {projects.slice(0, 3).map((project) => (
-                <div key={project.id} className="group relative overflow-hidden rounded-2xl transition-all duration-700 hover:-translate-y-2" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-                  <div className="aspect-[16/10] overflow-hidden">
+                <div key={project.id} className="card-ace group !p-0">
+                  <div className="aspect-[16/10] overflow-hidden" style={{ background: "rgba(0,240,255,0.03)" }}>
                     {project.coverImage ? (
                       <img src={project.coverImage} alt={getLocalizedField(project, "title", locale as Locale)} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     ) : (
-                      <div className="flex h-full items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(91,92,255,0.08), rgba(122,92,255,0.05))" }}>
-                        <span className="font-almarai text-4xl font-black" style={{ color: "rgba(91,92,255,0.15)" }}>ACE</span>
+                      <div className="flex h-full items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(0,240,255,0.06), rgba(139,92,246,0.04))" }}>
+                        <span className="text-3xl font-black" style={{ color: "rgba(0,240,255,0.12)", fontFamily: "'Space Mono', monospace" }}>ACE</span>
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="mb-2 font-almarai text-lg font-bold">{getLocalizedField(project, "title", locale as Locale)}</h3>
-                    <p className="text-sm" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
+                  <div className="relative z-10 p-6">
+                    <h3 className="mb-2 font-almarai text-lg font-bold text-white">{getLocalizedField(project, "title", locale as Locale)}</h3>
+                    <p className="mb-4 text-sm" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
                     {project.projectUrl ? (
-                      <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium transition-all duration-300" style={{ color: "var(--primary)" }}>
+                      <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "var(--primary)" }}>
                         {dict.projects.viewProject} <ExternalLink className="h-3.5 w-3.5" />
                       </a>
                     ) : (
-                      <span className="mt-4 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.15)" }}>
-                        {isAr ? "قيد التطوير" : "In Development"}
+                      <span className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.15)" }}>
+                        <Clock className="h-3.5 w-3.5" />{isAr ? "قيد التطوير" : "In Development"}
                       </span>
                     )}
                   </div>
                 </div>
               ))}
             </div>
-
-            <div className="mt-10 text-center sm:hidden">
-              <Link href={`/${locale}/projects`} className="btn-secondary">{dict.projects.viewAll} <Arrow className="h-4 w-4" /></Link>
-            </div>
           </div>
         </section>
       )}
 
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION 5 — WHY ACE
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="section-divider section-padding">
+      {/* ══════ WHY ACE ══════ */}
+      <section className="section-padding relative z-10">
         <div className="container-ace">
-          <div className="mb-16 text-center">
-            <div className="badge-ace mb-5">{dict.whyAce.subtitle}</div>
-            <h2 className="font-almarai text-3xl font-black sm:text-4xl lg:text-5xl">{dict.whyAce.title}</h2>
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: Zap, ...dict.whyAce.items.tech },
-              { icon: Users, ...dict.whyAce.items.team },
-              { icon: Clock, ...dict.whyAce.items.support },
-              { icon: Lock, ...dict.whyAce.items.security },
-            ].map((item, i) => (
-              <div key={i} className="group text-center">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl transition-all duration-700 group-hover:-translate-y-2 group-hover:shadow-xl" style={{ background: "linear-gradient(135deg, rgba(91,92,255,0.1), rgba(91,92,255,0.03))", border: "1px solid rgba(91,92,255,0.12)" }}>
-                  <item.icon className="h-9 w-9" style={{ color: "var(--primary)" }} />
+          <div className="grid items-center gap-20 lg:grid-cols-2">
+            <div>
+              <div className="badge-ace mb-5">WHY_ACE</div>
+              <h2 className="mb-5 font-almarai font-black leading-[1.2]" style={{ fontSize: "clamp(28px, 3.5vw, 46px)", color: "white" }}>
+                {isAr ? "لماذا تختار" : "Why Choose"}<br />
+                <span className="gradient-text">{isAr ? "محركات الأكواد؟" : "ACE?"}</span>
+              </h2>
+              <p className="mb-10 text-[15px] leading-[1.9]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                {isAr ? "لأن التقنية ليست مجرد أدوات — هي الطريقة التي تفكر بها شركتك وتنمو وتتفوق. نحن لا نبني برامج فحسب، نبني محركات للنجاح." : "Because technology isn't just tools — it's how your company thinks, grows, and excels. We don't just build software, we build engines for success."}
+              </p>
+              {[
+                { label: isAr ? "خبرة تقنية عميقة" : "Deep Technical Expertise", val: 95 },
+                { label: isAr ? "التزام بالمواعيد" : "On-Time Delivery", val: 97 },
+                { label: isAr ? "رضا العملاء" : "Client Satisfaction", val: 99 },
+              ].map((item, i) => (
+                <div key={i} className="mb-5">
+                  <div className="mb-2 flex justify-between">
+                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>{item.label}</span>
+                    <span className="text-sm" style={{ color: "var(--primary)", fontFamily: "'Space Mono', monospace" }}>{item.val}%</span>
+                  </div>
+                  <div className="h-1 overflow-hidden rounded-sm" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="h-full rounded-sm" style={{ width: `${item.val}%`, background: "linear-gradient(90deg, var(--primary), var(--primary-2))", boxShadow: "0 0 10px var(--primary)" }} />
+                  </div>
                 </div>
-                <h3 className="mb-2 font-almarai text-xl font-bold">{item.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--text-soft)" }}>{item.desc}</p>
+              ))}
+            </div>
+            <div className="hidden lg:flex lg:justify-center">
+              <div style={{ animation: "floatY 5s ease-in-out infinite" }}>
+                <div className="rounded-2xl p-8" style={{ background: "rgba(0,240,255,0.04)", border: "1px solid rgba(0,240,255,0.15)", width: 340 }}>
+                  <div className="mb-6 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-[10px] text-xs font-black text-black" style={{ background: "linear-gradient(135deg, var(--primary), var(--primary-2))", fontFamily: "'Space Mono', monospace" }}>ACE</div>
+                    <div>
+                      <div className="text-sm font-semibold text-white">{isAr ? "مشروع جديد" : "New Project"}</div>
+                      <div className="text-[11px]" style={{ color: "var(--text-muted)", fontFamily: "'Space Mono', monospace" }}>IN PROGRESS</div>
+                    </div>
+                    <div className="me-auto h-2.5 w-2.5 rounded-full" style={{ background: "var(--accent-2)", boxShadow: "0 0 10px var(--accent-2)", animation: "pulse 1.5s infinite" }} />
+                  </div>
+                  {[{ l: isAr ? "التصميم" : "Design", w: "100%" }, { l: isAr ? "التطوير" : "Development", w: "75%" }, { l: isAr ? "الاختبار" : "Testing", w: "45%" }, { l: isAr ? "النشر" : "Deploy", w: "10%" }].map((p, j) => (
+                    <div key={j} className="mb-3 flex items-center gap-3">
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px]" style={{ background: j < 3 ? "rgba(0,240,255,0.15)" : "rgba(255,255,255,0.04)", border: j < 3 ? "1px solid rgba(0,240,255,0.4)" : "1px solid rgba(255,255,255,0.1)", color: j < 3 ? "var(--primary)" : "var(--text-muted)" }}>✓</div>
+                      <div className="h-1 flex-1 overflow-hidden rounded-sm" style={{ background: "rgba(255,255,255,0.04)" }}>
+                        <div className="h-full rounded-sm" style={{ width: p.w, background: j < 3 ? "linear-gradient(90deg, var(--primary), var(--primary-2))" : "rgba(255,255,255,0.1)", boxShadow: j < 3 ? "0 0 8px var(--primary)" : "none" }} />
+                      </div>
+                      <span className="w-12 text-end text-xs" style={{ color: j < 3 ? "rgba(255,255,255,0.6)" : "var(--text-muted)" }}>{p.l}</span>
+                    </div>
+                  ))}
+                  <div className="mt-5 flex items-center justify-between rounded-[10px] p-3" style={{ background: "rgba(0,240,255,0.06)", border: "1px solid rgba(0,240,255,0.12)" }}>
+                    <span className="text-xs" style={{ color: "var(--text-muted)" }}>{isAr ? "التقدم الكلي" : "Overall"}</span>
+                    <span className="text-lg font-black" style={{ color: "var(--primary)", fontFamily: "'Space Mono', monospace" }}>73%</span>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          SECTION 6 — FINAL CTA (Dramatic)
-          ═══════════════════════════════════════════════════════════ */}
-      <section className="section-padding">
-        <div className="container-ace">
-          <div className="relative overflow-hidden rounded-[2rem] p-14 text-center sm:p-20" style={{ background: "linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%)", border: "1px solid var(--border)" }}>
-            {/* Multiple glow layers */}
-            <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ background: "radial-gradient(circle, rgba(91,92,255,0.15), transparent 60%)" }} />
-            <div className="absolute bottom-0 right-0 h-[300px] w-[300px] translate-x-1/3 translate-y-1/3 rounded-full" style={{ background: "radial-gradient(circle, rgba(122,92,255,0.1), transparent 60%)" }} />
-            <div className="absolute bottom-0 left-0 h-[200px] w-[200px] -translate-x-1/4 translate-y-1/4 rounded-full" style={{ background: "radial-gradient(circle, rgba(47,123,255,0.08), transparent 60%)" }} />
-
-            <div className="relative z-10">
-              <h2 className="font-almarai text-3xl font-black sm:text-4xl lg:text-5xl">{dict.cta.title}</h2>
-              <p className="mx-auto mt-6 max-w-lg text-lg" style={{ color: "var(--text-soft)" }}>{dict.cta.description}</p>
-              <div className="mt-12">
-                <Link href={`/${locale}/quote`} className="btn-primary px-12 py-5 text-lg">
-                  {dict.cta.button}
-                  <Arrow className="h-5 w-5" />
-                </Link>
-              </div>
+      {/* ══════ CTA ══════ */}
+      <section className="relative z-10 px-5 pb-[120px] pt-20 sm:px-[60px]">
+        <div className="relative mx-auto max-w-[900px] overflow-hidden rounded-3xl p-[72px_60px] text-center" style={{ background: "rgba(0,240,255,0.03)", border: "1px solid rgba(0,240,255,0.12)" }}>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ width: 500, height: 200, background: "radial-gradient(ellipse, rgba(0,240,255,0.08) 0%, transparent 70%)", filter: "blur(40px)", pointerEvents: "none" }} />
+          <div className="relative z-10">
+            <div className="badge-ace mb-7 inline-flex"><Zap className="h-3 w-3" /> INITIATE_PROJECT</div>
+            <h2 className="mb-4 font-almarai font-black leading-[1.15]" style={{ fontSize: "clamp(28px, 4vw, 52px)", color: "white" }}>
+              {dict.cta.title}
+            </h2>
+            <p className="mx-auto mb-12 max-w-[500px] text-base" style={{ color: "rgba(255,255,255,0.45)" }}>{dict.cta.description}</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href={`/${locale}/quote`} className="btn-primary px-9 py-4 text-base">
+                <Terminal className="h-[18px] w-[18px]" />{dict.cta.button}
+              </Link>
+              <Link href={`/${locale}/projects`} className="btn-secondary px-9 py-4 text-base">
+                <ExternalLink className="h-4 w-4" />{isAr ? "شاهد أعمالنا" : "View Our Work"}
+              </Link>
+            </div>
+            <div className="mt-12 flex flex-wrap justify-center gap-10">
+              {[isAr ? "استجابة خلال 24 ساعة" : "24hr Response", isAr ? "عقود واضحة" : "Clear Contracts", isAr ? "نتائج مضمونة" : "Guaranteed Results"].map((t, i) => (
+                <div key={i} className="flex items-center gap-2 text-[13px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  <span style={{ color: "var(--accent-2)" }}>✓</span> {t}
+                </div>
+              ))}
             </div>
           </div>
         </div>
