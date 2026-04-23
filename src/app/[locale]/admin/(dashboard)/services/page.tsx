@@ -31,7 +31,7 @@ export default function AdminServicesPage({ params }: { params: { locale: string
     <div>
       <div className="mb-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(91,92,255,0.1)" }}>
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(0,240,255,0.08)" }}>
             <Layers className="h-5 w-5" style={{ color: "var(--primary)" }} />
           </div>
           <h1 className="font-almarai text-2xl font-bold">{isAr ? "إدارة الخدمات" : "Manage Services"}</h1>
@@ -91,7 +91,7 @@ export default function AdminServicesPage({ params }: { params: { locale: string
           </thead>
           <tbody>
             {services.map((service, i) => (
-              <tr key={service.id} className="transition-all duration-300 hover:bg-[rgba(255,255,255,0.02)]" style={{ borderBottom: "1px solid var(--border)" }}>
+              <tr key={service.id} className="transition-all duration-300 hover:bg-[rgba(0,240,255,0.02)]" style={{ borderBottom: "1px solid var(--border)" }}>
                 <td className="px-5 py-4 text-sm" style={{ color: "var(--text-muted)" }}>{i + 1}</td>
                 <td className="px-5 py-4 text-sm font-medium">{isAr ? service.titleAr : service.titleEn}</td>
                 <td className="px-5 py-4 text-sm" dir="ltr" style={{ color: "var(--text-muted)" }}>{service.slug}</td>
@@ -104,7 +104,7 @@ export default function AdminServicesPage({ params }: { params: { locale: string
                 <td className="px-5 py-4">
                   <div className="flex items-center justify-center gap-1">
                     <button onClick={() => handleTogglePublish(service.id)} className="rounded-xl p-2 transition-all hover:bg-[rgba(255,255,255,0.05)]" style={{ color: "var(--text-muted)" }}>{service.isPublished ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>
-                    <button onClick={() => { setEditing(service); setShowForm(true); }} className="rounded-xl p-2 transition-all hover:bg-[rgba(91,92,255,0.1)]" style={{ color: "var(--primary)" }}><Edit2 className="h-4 w-4" /></button>
+                    <button onClick={() => { setEditing(service); setShowForm(true); }} className="rounded-xl p-2 transition-all hover:bg-[rgba(0,240,255,0.08)]" style={{ color: "var(--primary)" }}><Edit2 className="h-4 w-4" /></button>
                     <button onClick={() => handleDelete(service.id)} className="rounded-xl p-2 transition-all hover:bg-[rgba(239,68,68,0.1)]" style={{ color: "#f87171" }}><Trash2 className="h-4 w-4" /></button>
                   </div>
                 </td>

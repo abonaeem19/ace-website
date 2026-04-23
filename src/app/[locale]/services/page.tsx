@@ -21,7 +21,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       <Header locale={locale as Locale} dict={dict} />
       <main className="pt-32">
         <section className="relative overflow-hidden pb-20 pt-10">
-          <div className="glow-orb" style={{ width: 500, height: 500, background: "rgba(91,92,255,0.06)", top: "-20%", left: "50%", transform: "translateX(-50%)" }} />
+          <div className="glow-orb" style={{ width: 500, height: 500, background: "rgba(0,240,255,0.06)", top: "-20%", left: "50%", transform: "translateX(-50%)" }} />
           <div className="container-ace relative z-10 text-center">
             <p className="badge-ace anim-up mb-6">{dict.services.subtitle}</p>
             <h1 className="anim-up delay-1 font-almarai text-4xl font-extrabold sm:text-5xl lg:text-6xl">{dict.services.title}</h1>
@@ -37,7 +37,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                 return (
                   <div key={service.id} className="card-ace group p-8">
                     <div className="relative z-10">
-                      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110" style={{ background: "rgba(91,92,255,0.08)", border: "1px solid rgba(91,92,255,0.1)" }}>
+                      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110" style={{ background: "rgba(0,240,255,0.08)", border: "1px solid rgba(0,240,255,0.1)" }}>
                         <Icon className="h-8 w-8" style={{ color: "var(--primary)" }} />
                       </div>
                       <h3 className="mb-3 font-almarai text-xl font-bold">{getLocalizedField(service, "title", locale as Locale)}</h3>

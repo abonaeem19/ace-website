@@ -26,7 +26,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <main className="pt-32">
         {/* Hero Header */}
         <section className="relative overflow-hidden pb-20 pt-10">
-          <div className="glow-orb" style={{ width: 500, height: 500, background: "rgba(91,92,255,0.06)", top: "-20%", left: "50%", transform: "translateX(-50%)" }} />
+          <div className="glow-orb" style={{ width: 500, height: 500, background: "rgba(0,240,255,0.06)", top: "-20%", left: "50%", transform: "translateX(-50%)" }} />
           <div className="container-ace relative z-10 text-center">
             <p className="badge-ace anim-up mb-6">{dict.about.subtitle}</p>
             <h1 className="anim-up delay-1 font-almarai text-4xl font-extrabold sm:text-5xl lg:text-6xl">{dict.about.title}</h1>
@@ -51,7 +51,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {vision && (
               <div className="card-ace p-8 text-center">
                 <div className="relative z-10">
-                  <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "rgba(91,92,255,0.1)", border: "1px solid rgba(91,92,255,0.15)" }}>
+                  <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "rgba(0,240,255,0.1)", border: "1px solid rgba(0,240,255,0.15)" }}>
                     <Eye className="h-8 w-8" style={{ color: "var(--primary)" }} />
                   </div>
                   <h2 className="mb-4 font-almarai text-2xl font-bold">{dict.about.vision}</h2>
@@ -62,7 +62,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {mission && (
               <div className="card-ace p-8 text-center">
                 <div className="relative z-10">
-                  <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "rgba(122,92,255,0.1)", border: "1px solid rgba(122,92,255,0.15)" }}>
+                  <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.15)" }}>
                     <Target className="h-8 w-8" style={{ color: "var(--primary-2)" }} />
                   </div>
                   <h2 className="mb-4 font-almarai text-2xl font-bold">{dict.about.mission}</h2>
@@ -81,7 +81,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               {values.map((v, i) => (
                 <div key={i} className="card-ace group p-7 text-center">
                   <div className="relative z-10">
-                    <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110" style={{ background: "rgba(91,92,255,0.08)", border: "1px solid rgba(91,92,255,0.1)" }}>
+                    <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110" style={{ background: "rgba(0,240,255,0.08)", border: "1px solid rgba(0,240,255,0.1)" }}>
                       <v.icon className="h-7 w-7" style={{ color: "var(--primary)" }} />
                     </div>
                     <h3 className="mb-2 font-almarai text-lg font-bold">{v.title}</h3>

@@ -120,9 +120,23 @@ export async function updateMessageStatus(id: string, status: string) {
   return { success: true };
 }
 
+export async function deleteMessage(id: string) {
+  await requireAuth();
+  await prisma.contactMessage.delete({ where: { id } });
+  revalidatePath("/");
+  return { success: true };
+}
+
 export async function updateQuoteStatus(id: string, status: string) {
   await requireAuth();
   await prisma.quoteRequest.update({ where: { id }, data: { status } });
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function deleteQuote(id: string) {
+  await requireAuth();
+  await prisma.quoteRequest.delete({ where: { id } });
   revalidatePath("/");
   return { success: true };
 }
