@@ -141,6 +141,69 @@ export async function deleteQuote(id: string) {
   return { success: true };
 }
 
+// ── Admin Users ──
+export async function createUser(formData: FormData) {
+  await requireAuth();
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const role = formData.get("role") as string || "editor";
+
+  if (!name || !email || !password) return { error: "All fields required" };
+  if (password.length < 6) return { error: "Password must be 6+ chars" };
+
+  const existing = await prisma.adminUser.findUnique({ where: { email } });
+  if (existing) return { error: "Email already exists" };
+
+  const bcrypt = await import("bcryptjs");
+  const passwordHash = await bcrypt.hash(password, 12);
+
+  await prisma.adminUser.create({
+    data: { name, email, passwordHash, role, isActive: true },
+  });
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function updateUser(id: string, formData: FormData) {
+  await requireAuth();
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const role = formData.get("role") as string;
+  const password = formData.get("password") as string;
+
+  const data: Record<string, any> = { name, email, role };
+
+  if (password && password.length >= 6) {
+    const bcrypt = await import("bcryptjs");
+    data.passwordHash = await bcrypt.hash(password, 12);
+  }
+
+  await prisma.adminUser.update({ where: { id }, data });
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function deleteUser(id: string) {
+  await requireAuth();
+  const count = await prisma.adminUser.count();
+  if (count <= 1) return { error: "Cannot delete the last admin" };
+  await prisma.adminUser.delete({ where: { id } });
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function toggleUserActive(id: string) {
+  await requireAuth();
+  const user = await prisma.adminUser.findUnique({ where: { id } });
+  if (!user) return { error: "Not found" };
+  const activeAdmins = await prisma.adminUser.count({ where: { isActive: true } });
+  if (user.isActive && activeAdmins <= 1) return { error: "Cannot deactivate the last active admin" };
+  await prisma.adminUser.update({ where: { id }, data: { isActive: !user.isActive } });
+  revalidatePath("/");
+  return { success: true };
+}
+
 // ── Admin Settings ──
 export async function updateSettings(formData: FormData) {
   await requireAuth();

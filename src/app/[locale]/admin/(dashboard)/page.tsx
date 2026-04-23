@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Layers, FolderKanban, MessageSquare, FileText, TrendingUp } from "lucide-react";
+import { Layers, FolderKanban, MessageSquare, FileText, TrendingUp, Users } from "lucide-react";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { getDashboardStats } from "@/lib/queries";
 import { getSession } from "@/lib/auth";
@@ -19,6 +19,7 @@ export default async function AdminDashboardPage({ params }: { params: Promise<{
     { icon: FolderKanban, label: t.totalProjects, value: stats.totalProjects, gradient: "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05))", iconColor: "#10b981", borderColor: "rgba(16,185,129,0.2)", href: `/${locale}/admin/projects` },
     { icon: MessageSquare, label: t.totalMessages, value: stats.totalMessages, gradient: "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))", iconColor: "#f59e0b", borderColor: "rgba(245,158,11,0.2)", href: `/${locale}/admin/messages` },
     { icon: FileText, label: t.totalQuotes, value: stats.totalQuotes, gradient: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(139,92,246,0.05))", iconColor: "#8B5CF6", borderColor: "rgba(139,92,246,0.2)", href: `/${locale}/admin/quotes` },
+    { icon: Users, label: isAr ? "المستخدمين" : "Users", value: stats.totalUsers, gradient: "linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05))", iconColor: "#EC4899", borderColor: "rgba(236,72,153,0.2)", href: `/${locale}/admin/users` },
   ];
 
   const statusBadge = (status: string) => {
@@ -47,7 +48,7 @@ export default async function AdminDashboardPage({ params }: { params: Promise<{
       </div>
 
       {/* Stats Cards — Clickable */}
-      <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
         {cards.map((card, i) => (
           <Link key={i} href={card.href} className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
             <div className="absolute -top-12 -end-12 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100" style={{ background: card.gradient }} />

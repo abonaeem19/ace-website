@@ -87,16 +87,17 @@ export async function getSiteSettings() {
 // ── Dashboard Stats ──
 export async function getDashboardStats() {
   try {
-    const [totalServices, totalProjects, totalMessages, totalQuotes, recentMessages, recentQuotes] = await Promise.all([
+    const [totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, recentMessages, recentQuotes] = await Promise.all([
       prisma.service.count(),
       prisma.project.count(),
       prisma.contactMessage.count(),
       prisma.quoteRequest.count(),
+      prisma.adminUser.count(),
       getRecentMessages(5),
       getRecentQuoteRequests(5),
     ]);
-    return { totalServices, totalProjects, totalMessages, totalQuotes, recentMessages, recentQuotes };
+    return { totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, recentMessages, recentQuotes };
   } catch {
-    return { totalServices: 0, totalProjects: 0, totalMessages: 0, totalQuotes: 0, recentMessages: [], recentQuotes: [] };
+    return { totalServices: 0, totalProjects: 0, totalMessages: 0, totalQuotes: 0, totalUsers: 0, recentMessages: [], recentQuotes: [] };
   }
 }

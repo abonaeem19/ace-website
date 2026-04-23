@@ -2,12 +2,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Layers, FolderKanban, MessageSquare, FileText, Settings, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Layers, FolderKanban, MessageSquare, FileText, Settings, LogOut, ExternalLink, Users } from "lucide-react";
 import { logoutAction } from "@/lib/actions";
 
 export default function AdminSidebar({ locale, dict }: { locale: string; dict: Record<string, any> }) {
   const pathname = usePathname();
   const t = dict.admin.sidebar;
+  const isAr = locale === "ar";
 
   const links = [
     { href: `/${locale}/admin`, label: t.dashboard, icon: LayoutDashboard },
@@ -16,6 +17,7 @@ export default function AdminSidebar({ locale, dict }: { locale: string; dict: R
     { href: `/${locale}/admin/messages`, label: t.messages, icon: MessageSquare },
     { href: `/${locale}/admin/quotes`, label: t.quotes, icon: FileText },
     { href: `/${locale}/admin/settings`, label: t.settings, icon: Settings },
+    { href: `/${locale}/admin/users`, label: isAr ? "المستخدمين" : "Users", icon: Users },
   ];
 
   return (
