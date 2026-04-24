@@ -37,23 +37,21 @@ export default function AdminUsersPage({ params }: { params: { locale: string } 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); setError("");
     const formData = new FormData(e.currentTarget);
-    let result;
-    if (editing) { result = await updateUser(editing.id, formData); }
-    else { result = await createUser(formData); }
-    if (result?.error) { setError(result.error); return; }
+    const result = editing ? await updateUser(editing.id, formData) : await createUser(formData);
+    if ("error" in result && result.error) { setError(result.error); return; }
     setShowForm(false); setEditing(null); fetchUsers();
   }
 
   async function handleDelete(id: string) {
     if (!confirm(isAr ? "هل أنت متأكد من حذف هذا المستخدم؟" : "Delete this user?")) return;
     const result = await deleteUser(id);
-    if (result?.error) { alert(result.error); return; }
+    if ("error" in result && result.error) { alert(result.error); return; }
     fetchUsers();
   }
 
   async function handleToggleActive(id: string) {
     const result = await toggleUserActive(id);
-    if (result?.error) { alert(result.error); return; }
+    if ("error" in result && result.error) { alert(result.error); return; }
     fetchUsers();
   }
 
