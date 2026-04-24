@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Plus, Edit2, Trash2, Eye, EyeOff, Loader2, FolderKanban, X, Upload, Image as ImageIcon } from "lucide-react";
-import { createProject, updateProject, deleteProject, toggleProjectPublish } from "@/lib/actions";
+import { Plus, Edit2, Trash2, Eye, EyeOff, Loader2, FolderKanban, X, Upload, Image as ImageIcon, Wrench, Rocket } from "lucide-react";
+import { createProject, updateProject, deleteProject, toggleProjectPublish, toggleProjectDev } from "@/lib/actions";
 
 interface Project { id: string; titleAr: string; titleEn: string; shortDescriptionAr: string; shortDescriptionEn: string; descriptionAr: string; descriptionEn: string; coverImage: string | null; projectUrl: string | null; slug: string; sortOrder: number; isPublished: boolean; }
 
@@ -129,6 +129,7 @@ export default function AdminProjectsPage({ params }: { params: { locale: string
             <th className="px-5 py-4 text-start text-sm font-medium" style={{ color: "var(--text-muted)" }}>#</th>
             <th className="px-5 py-4 text-start text-sm font-medium" style={{ color: "var(--text-muted)" }}>{isAr ? "الصورة" : "Image"}</th>
             <th className="px-5 py-4 text-start text-sm font-medium" style={{ color: "var(--text-muted)" }}>{isAr ? "العنوان" : "Title"}</th>
+            <th className="px-5 py-4 text-center text-sm font-medium" style={{ color: "var(--text-muted)" }}>{isAr ? "التطوير" : "Dev"}</th>
             <th className="px-5 py-4 text-center text-sm font-medium" style={{ color: "var(--text-muted)" }}>{isAr ? "الحالة" : "Status"}</th>
             <th className="px-5 py-4 text-center text-sm font-medium" style={{ color: "var(--text-muted)" }}>{isAr ? "إجراءات" : "Actions"}</th>
           </tr></thead>
@@ -145,7 +146,15 @@ export default function AdminProjectsPage({ params }: { params: { locale: string
                 </td>
                 <td className="px-5 py-4">
                   <p className="text-sm font-medium">{isAr ? p.titleAr : p.titleEn}</p>
-                  {!p.projectUrl && <span className="mt-1 inline-block rounded px-1.5 py-0.5 text-[10px] font-medium" style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b" }}>{isAr ? "قيد التطوير" : "In Dev"}</span>}
+                </td>
+                <td className="px-5 py-4 text-center">
+                  <button onClick={() => toggleProjectDev(p.id).then(fetchProjects)} className="group inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-300" style={{
+                    background: !p.projectUrl ? "rgba(245,158,11,0.1)" : "rgba(16,185,129,0.1)",
+                    color: !p.projectUrl ? "#f59e0b" : "#10b981",
+                    border: `1px solid ${!p.projectUrl ? "rgba(245,158,11,0.2)" : "rgba(16,185,129,0.2)"}`,
+                  }}>
+                    {!p.projectUrl ? <><Wrench className="h-3 w-3" />{isAr ? "قيد التطوير" : "In Dev"}</> : <><Rocket className="h-3 w-3" />{isAr ? "مكتمل" : "Live"}</>}
+                  </button>
                 </td>
                 <td className="px-5 py-4 text-center">
                   <span className="rounded-lg px-2.5 py-1 text-xs font-medium" style={{ background: p.isPublished ? "rgba(16,185,129,0.1)" : "rgba(107,122,153,0.1)", color: p.isPublished ? "#34d399" : "var(--text-muted)" }}>{p.isPublished ? (isAr ? "منشور" : "Published") : (isAr ? "مسودة" : "Draft")}</span>

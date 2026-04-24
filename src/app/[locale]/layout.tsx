@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isValidLocale, getDirection } from "@/lib/i18n";
+import PageTracker from "@/components/layout/PageTracker";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default async function RootLayout({ children, params }: { children: React
   return (
     <html lang={locale} dir={dir} className="scroll-smooth" suppressHydrationWarning>
       <body className={`${fontFamily} antialiased`} style={{ background: "var(--bg-main)", color: "var(--text-main)" }}>
+        <PageTracker />
         {children}
       </body>
     </html>

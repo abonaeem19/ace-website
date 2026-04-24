@@ -45,16 +45,16 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                     <div className="relative z-10 p-7">
                       <h3 className="mb-2 font-almarai text-xl font-bold">{getLocalizedField(project, "title", locale as Locale)}</h3>
                       <p className="mb-4 text-sm leading-relaxed" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
-                      {project.projectUrl ? (
+                      {project.projectUrl && project.projectUrl !== "#live" ? (
                         <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300" style={{ color: "var(--primary)" }}>
                           {dict.projects.viewProject} <ExternalLink className="h-4 w-4" />
                         </a>
-                      ) : (
+                      ) : !project.projectUrl ? (
                         <span className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.15)" }}>
                           <Clock className="h-3.5 w-3.5" />
                           {locale === "ar" ? "قيد التطوير" : "In Development"}
                         </span>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 ))}

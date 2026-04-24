@@ -87,17 +87,22 @@ export async function getSiteSettings() {
 // ── Dashboard Stats ──
 export async function getDashboardStats() {
   try {
-    const [totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, recentMessages, recentQuotes] = await Promise.all([
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    const [totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, totalVisitors, todayVisitors, recentMessages, recentQuotes] = await Promise.all([
       prisma.service.count(),
       prisma.project.count(),
       prisma.contactMessage.count(),
       prisma.quoteRequest.count(),
       prisma.adminUser.count(),
+      prisma.pageView.count(),
+      prisma.pageView.count({ where: { createdAt: { gte: todayStart } } }),
       getRecentMessages(5),
       getRecentQuoteRequests(5),
     ]);
-    return { totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, recentMessages, recentQuotes };
+    return { totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, totalVisitors, todayVisitors, recentMessages, recentQuotes };
   } catch {
-    return { totalServices: 0, totalProjects: 0, totalMessages: 0, totalQuotes: 0, totalUsers: 0, recentMessages: [], recentQuotes: [] };
+    return { totalServices: 0, totalProjects: 0, totalMessages: 0, totalQuotes: 0, totalUsers: 0, totalVisitors: 0, todayVisitors: 0, recentMessages: [], recentQuotes: [] };
   }
 }

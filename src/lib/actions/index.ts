@@ -112,6 +112,17 @@ export async function toggleProjectPublish(id: string) {
   return { success: true };
 }
 
+export async function toggleProjectDev(id: string) {
+  await requireAuth();
+  const project = await prisma.project.findUnique({ where: { id } });
+  if (!project) return { error: "Not found" };
+  // If has URL → clear it (under dev). If no URL → mark as live with placeholder
+  const newUrl = project.projectUrl ? null : "#live";
+  await prisma.project.update({ where: { id }, data: { projectUrl: newUrl } });
+  revalidatePath("/");
+  return { success: true };
+}
+
 // ── Admin Messages & Quotes ──
 export async function updateMessageStatus(id: string, status: string) {
   await requireAuth();

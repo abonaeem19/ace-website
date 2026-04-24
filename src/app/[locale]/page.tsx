@@ -183,15 +183,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <div className="relative z-10 p-6">
                     <h3 className="mb-2 font-almarai text-lg font-bold text-white">{getLocalizedField(project, "title", locale as Locale)}</h3>
                     <p className="mb-4 text-sm" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
-                    {project.projectUrl ? (
+                    {project.projectUrl && project.projectUrl !== "#live" ? (
                       <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "var(--primary)" }}>
                         {dict.projects.viewProject} <ExternalLink className="h-3.5 w-3.5" />
                       </a>
-                    ) : (
+                    ) : !project.projectUrl ? (
                       <span className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium" style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.15)" }}>
                         <Clock className="h-3.5 w-3.5" />{isAr ? "قيد التطوير" : "In Development"}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               ))}

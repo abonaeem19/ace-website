@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Layers, FolderKanban, MessageSquare, FileText, TrendingUp, Users } from "lucide-react";
+import { Layers, FolderKanban, MessageSquare, FileText, TrendingUp, Users, Eye, BarChart3 } from "lucide-react";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { getDashboardStats } from "@/lib/queries";
 import { getSession } from "@/lib/auth";
@@ -20,6 +20,7 @@ export default async function AdminDashboardPage({ params }: { params: Promise<{
     { icon: MessageSquare, label: t.totalMessages, value: stats.totalMessages, gradient: "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))", iconColor: "#f59e0b", borderColor: "rgba(245,158,11,0.2)", href: `/${locale}/admin/messages` },
     { icon: FileText, label: t.totalQuotes, value: stats.totalQuotes, gradient: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(139,92,246,0.05))", iconColor: "#8B5CF6", borderColor: "rgba(139,92,246,0.2)", href: `/${locale}/admin/quotes` },
     { icon: Users, label: isAr ? "المستخدمين" : "Users", value: stats.totalUsers, gradient: "linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05))", iconColor: "#EC4899", borderColor: "rgba(236,72,153,0.2)", href: `/${locale}/admin/users` },
+    { icon: Eye, label: isAr ? "إجمالي الزوار" : "Total Visitors", value: stats.totalVisitors, gradient: "linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05))", iconColor: "#6366F1", borderColor: "rgba(99,102,241,0.2)", href: "#" },
   ];
 
   const statusBadge = (status: string) => {
@@ -48,7 +49,7 @@ export default async function AdminDashboardPage({ params }: { params: Promise<{
       </div>
 
       {/* Stats Cards — Clickable */}
-      <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((card, i) => (
           <Link key={i} href={card.href} className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
             <div className="absolute -top-12 -end-12 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100" style={{ background: card.gradient }} />
@@ -63,6 +64,32 @@ export default async function AdminDashboardPage({ params }: { params: Promise<{
             </div>
           </Link>
         ))}
+      </div>
+
+      {/* Visitor Today Bar */}
+      <div className="mb-10 overflow-hidden rounded-2xl p-5" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(99,102,241,0.1)" }}>
+              <BarChart3 className="h-5 w-5" style={{ color: "#6366F1" }} />
+            </div>
+            <div>
+              <p className="text-sm font-medium">{isAr ? "زوار اليوم" : "Today's Visitors"}</p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>{isAr ? "عدد الزيارات منذ بداية اليوم" : "Page views since midnight"}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="text-center">
+              <p className="text-3xl font-black" style={{ fontFamily: "'Space Mono', monospace", color: "#6366F1" }}>{stats.todayVisitors}</p>
+              <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{isAr ? "اليوم" : "Today"}</p>
+            </div>
+            <div className="h-10 w-[1px]" style={{ background: "var(--border)" }} />
+            <div className="text-center">
+              <p className="text-3xl font-black" style={{ fontFamily: "'Space Mono', monospace", color: "var(--primary)" }}>{stats.totalVisitors}</p>
+              <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{isAr ? "الإجمالي" : "Total"}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Recent Data */}
