@@ -145,7 +145,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="section-divider relative z-10 overflow-hidden py-6">
         <div className="mb-5 text-center text-xs tracking-[2px]" style={{ color: "var(--text-muted)", fontFamily: "'Space Mono', monospace" }}>— TECH STACK —</div>
         <div className="flex overflow-hidden">
-          <div className="flex gap-8 whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
+          <div className="flex gap-8 whitespace-nowrap" style={{ animation: "marqueeTech 25s linear infinite" }}>
             {[...Array(2)].flatMap(() => ["Next.js","React Native","Node.js","TypeScript","PostgreSQL","ChatGPT API","LangChain","Python","Docker","AWS","Supabase","Prisma","GraphQL","FastAPI","Redis","TailwindCSS","Figma","n8n"]).map((t, i) => (
               <span key={i} className="inline-flex items-center gap-2.5 text-sm" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "'Space Mono', monospace" }}>
                 <span className="inline-block h-1 w-1 rounded-full bg-[var(--primary)]" />{t}
@@ -155,11 +155,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {/* ══════ PROJECTS PREVIEW ══════ */}
+      {/* ══════ PROJECTS MARQUEE ══════ */}
       {projects.length > 0 && (
-        <section className="section-padding relative z-10">
-          <div className="container-ace">
-            <div className="mb-16 flex items-end justify-between">
+        <section className="relative z-10 overflow-hidden py-20 lg:py-[80px]">
+          <div className="container-ace mb-12">
+            <div className="flex items-end justify-between">
               <div>
                 <div className="badge-ace mb-5">{dict.projects.subtitle}</div>
                 <h2 className="font-almarai font-black" style={{ fontSize: "clamp(28px, 3.5vw, 46px)", color: "white" }}>{dict.projects.title}</h2>
@@ -168,9 +168,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 {dict.projects.viewAll} <Arrow className="h-4 w-4" />
               </Link>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {projects.slice(0, 3).map((project) => (
-                <div key={project.id} className="card-ace group !p-0">
+          </div>
+          {/* Scrolling Track */}
+          <div className="marquee-track relative">
+            {/* Fade edges */}
+            <div className="pointer-events-none absolute inset-y-0 start-0 z-10 w-20" style={{ background: "linear-gradient(to right, var(--bg-main), transparent)" }} />
+            <div className="pointer-events-none absolute inset-y-0 end-0 z-10 w-20" style={{ background: "linear-gradient(to left, var(--bg-main), transparent)" }} />
+            {/* Track */}
+            <div className="flex gap-6" style={{ animation: `${isAr ? "marqueeRTL" : "marquee"} ${projects.length * 8}s linear infinite`, width: "max-content" }}>
+              {[...projects, ...projects, ...projects].map((project, idx) => (
+                <div key={`${project.id}-${idx}`} className="group w-[360px] shrink-0 overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-2" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
                   <div className="aspect-[16/10] overflow-hidden" style={{ background: "rgba(0,240,255,0.03)" }}>
                     {project.coverImage ? (
                       <img src={project.coverImage} alt={getLocalizedField(project, "title", locale as Locale)} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -180,9 +187,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       </div>
                     )}
                   </div>
-                  <div className="relative z-10 p-6">
+                  <div className="p-6">
                     <h3 className="mb-2 font-almarai text-lg font-bold text-white">{getLocalizedField(project, "title", locale as Locale)}</h3>
-                    <p className="mb-4 text-sm" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
+                    <p className="mb-4 line-clamp-2 text-sm" style={{ color: "var(--text-soft)" }}>{getLocalizedField(project, "shortDescription", locale as Locale)}</p>
                     {project.projectUrl && project.projectUrl !== "#live" ? (
                       <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "var(--primary)" }}>
                         {dict.projects.viewProject} <ExternalLink className="h-3.5 w-3.5" />
