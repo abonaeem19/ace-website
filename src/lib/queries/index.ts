@@ -90,17 +90,26 @@ export async function getDashboardStats() {
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    const [totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, totalVisitors, todayVisitors, recentMessages, recentQuotes] = await Promise.all([
+    const [totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, recentMessages, recentQuotes] = await Promise.all([
       prisma.service.count(),
       prisma.project.count(),
       prisma.contactMessage.count(),
       prisma.quoteRequest.count(),
       prisma.adminUser.count(),
-      prisma.pageView.count(),
-      prisma.pageView.count({ where: { createdAt: { gte: todayStart } } }),
       getRecentMessages(5),
       getRecentQuoteRequests(5),
     ]);
+
+    // Visitor stats - separate try/catch so it doesn't break everything
+    let totalVisitors = 0;
+    let todayVisitors = 0;
+    try {
+      totalVisitors = await prisma.pageView.count();
+      todayVisitors = await prisma.pageView.count({ where: { createdAt: { gte: todayStart } } });
+    } catch {
+      // page_views table may not exist yet
+    }
+
     return { totalServices, totalProjects, totalMessages, totalQuotes, totalUsers, totalVisitors, todayVisitors, recentMessages, recentQuotes };
   } catch {
     return { totalServices: 0, totalProjects: 0, totalMessages: 0, totalQuotes: 0, totalUsers: 0, totalVisitors: 0, todayVisitors: 0, recentMessages: [], recentQuotes: [] };
